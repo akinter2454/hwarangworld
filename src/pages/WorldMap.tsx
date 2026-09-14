@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { countries, countryById } from '../data/countries';
 import { FlightTransition } from '../components/FlightTransition';
+import { DailyPhraseCard } from '../components/DailyPhraseCard';
 import { useTravel } from '../store/TravelContext';
 import { useClassroom } from '../store/ClassroomContext';
 
@@ -65,6 +66,8 @@ export function WorldMap({ onSelect, onOpenTeacher, onJoinClass }: { onSelect: (
           <div className="star-pill">⭐ {player.stars}</div>
         </div>
       </header>
+
+      <DailyPhraseCard countries={allCountries} />
 
       <div className="map-hero card">
         <div className="map-globe">🌍</div>

@@ -14,6 +14,8 @@ const initialPlayer: PlayerData = {
   activityCompletions: [],
   quizBestScores: {},
   quizAttempts: {},
+  learnedPhraseIds: [],
+  favoritePhraseIds: [],
 };
 
 type TravelContextValue = {
@@ -22,6 +24,8 @@ type TravelContextValue = {
   completeCountry: (countryId: string, collectibleId: string, earnedStars: number) => void;
   recordQuizAttempt: (countryId: string, score: number) => void;
   completeMiniGame: (activityId: string, earnedStars?: number) => void;
+  markPhraseLearned: (phraseId: string) => void;
+  toggleFavoritePhrase: (phraseId: string) => void;
   saveJournal: (entry: JournalEntry) => void;
   resetProgress: () => void;
   replacePlayer: (player: PlayerData) => void;
@@ -42,6 +46,8 @@ export function TravelProvider({ children }: { children: ReactNode }) {
         activityCompletions: parsed.activityCompletions ?? [],
         quizBestScores: parsed.quizBestScores ?? {},
         quizAttempts: parsed.quizAttempts ?? {},
+        learnedPhraseIds: parsed.learnedPhraseIds ?? [],
+        favoritePhraseIds: parsed.favoritePhraseIds ?? [],
       };
     } catch {
       return initialPlayer;
@@ -90,12 +96,19 @@ export function TravelProvider({ children }: { children: ReactNode }) {
         };
       });
     },
+    markPhraseLearned: (phraseId) => setPlayer((prev) => prev.learnedPhraseIds.includes(phraseId) ? prev : ({ ...prev, learnedPhraseIds: [...prev.learnedPhraseIds, phraseId] })),
+    toggleFavoritePhrase: (phraseId) => setPlayer((prev) => ({
+      ...prev,
+      favoritePhraseIds: prev.favoritePhraseIds.includes(phraseId)
+        ? prev.favoritePhraseIds.filter((id) => id !== phraseId)
+        : [...prev.favoritePhraseIds, phraseId],
+    })),
     saveJournal: (entry) => setPlayer((prev) => ({
       ...prev,
       journals: { ...prev.journals, [entry.countryId]: entry },
     })),
     resetProgress: () => setPlayer(initialPlayer),
-    replacePlayer: (next) => setPlayer({ ...initialPlayer, ...next, journals: next.journals ?? {}, activityCompletions: next.activityCompletions ?? [], quizBestScores: next.quizBestScores ?? {}, quizAttempts: next.quizAttempts ?? {} }),
+    replacePlayer: (next) => setPlayer({ ...initialPlayer, ...next, journals: next.journals ?? {}, activityCompletions: next.activityCompletions ?? [], quizBestScores: next.quizBestScores ?? {}, quizAttempts: next.quizAttempts ?? {}, learnedPhraseIds: next.learnedPhraseIds ?? [], favoritePhraseIds: next.favoritePhraseIds ?? [] }),
   }), [player]);
 
   return <TravelContext.Provider value={value}>{children}</TravelContext.Provider>;

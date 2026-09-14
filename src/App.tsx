@@ -12,6 +12,7 @@ import { ClassJoin } from './pages/ClassJoin';
 import { CountryExplorer } from './pages/CountryExplorer';
 import { Home } from './pages/Home';
 import { Journal } from './pages/Journal';
+import { LanguageBook } from './pages/LanguageBook';
 import { Passport } from './pages/Passport';
 import { TeacherPortal } from './pages/TeacherPortal';
 import { WorldMap } from './pages/WorldMap';
@@ -61,6 +62,7 @@ export default function App() {
       <main className="app-content">
         <ClassSessionBanner />
         {tab === 'travel' && <WorldMap onSelect={setCountryId} onOpenTeacher={() => setTeacherMode(true)} onJoinClass={() => setJoinMode(true)} />}
+        {tab === 'language' && <LanguageBook />}
         {tab === 'passport' && <Passport />}
         {tab === 'bag' && <Bag />}
         {tab === 'journal' && <Journal />}

@@ -46,6 +46,7 @@ export function Quiz({ questions, onComplete }: { questions: QuizQuestion[]; onC
     <div className="quiz card">
       <div className="progress-row"><span>미션 {index + 1} / {questions.length}</span><span>⭐ {score}</span></div>
       <div className="progress"><div style={{ width: `${((index + 1) / questions.length) * 100}%` }} /></div>
+      {question.image && <figure className="quiz-image"><img src={question.image} alt={question.imageAlt ?? '문제와 관련된 교육용 이미지'} /></figure>}
       <h3>{question.question}</h3>
       <div className="option-list">
         {question.options.map((option, optionIndex) => {

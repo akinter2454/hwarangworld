@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { generateSmartQuiz, type SmartQuizDifficulty } from '../services/smartQuiz';
 import { deleteTeacherCountry, listTeacherCountries, saveTeacherCountry } from '../services/supabase';
-import type { Country, QuizQuestion, TeacherCountryRecord } from '../types';
+import type { Country, LanguagePhrase, PhraseCategory, QuizQuestion, TeacherCountryRecord } from '../types';
 
 const emptyQuestions: QuizQuestion[] = [0, 1, 2].map((index) => ({
   id: `draft-${index + 1}`,
@@ -14,8 +14,14 @@ const emptyQuestions: QuizQuestion[] = [0, 1, 2].map((index) => ({
 function makeCountry(input: {
   id: string; name: string; englishName: string; flag: string; region: string; intro: string;
   greeting: string; greetingMeaning: string; language: string; food: string; foodDescription: string;
-  culture: string; cultureDescription: string; dailyLife: string; comparePrompt: string; quiz: QuizQuestion[];
+  culture: string; cultureDescription: string; dailyLife: string; comparePrompt: string; quiz: QuizQuestion[]; phrasesText: string; heroImage: string;
 }): Country {
+  const allowedCategories: PhraseCategory[] = ['인사', '예절', '학교', '일상'];
+  const extraPhrases: LanguagePhrase[] = input.phrasesText.split('\n').map((line) => line.trim()).filter(Boolean).map((line) => {
+    const [text, meaning, rawCategory, romanization] = line.split('|').map((part) => part?.trim() ?? '');
+    const category = allowedCategories.includes(rawCategory as PhraseCategory) ? rawCategory as PhraseCategory : '일상';
+    return { text, meaning: meaning || '뜻을 입력해 주세요.', lang: input.language.trim() || 'ko-KR', category, romanization: romanization || undefined, icon: category === '학교' ? '🏫' : category === '예절' ? '🙏' : category === '인사' ? '👋' : '💬' };
+  }).filter((phrase) => phrase.text);
   return {
     id: input.id,
     name: input.name.trim(),
@@ -25,13 +31,14 @@ function makeCountry(input: {
     colorClass: 'teal',
     intro: input.intro.trim(),
     greeting: { text: input.greeting.trim(), meaning: input.greetingMeaning.trim(), lang: input.language.trim() || 'ko-KR' },
-    phrases: [{ text: input.greeting.trim(), meaning: input.greetingMeaning.trim(), lang: input.language.trim() || 'ko-KR' }],
+    phrases: [{ text: input.greeting.trim(), meaning: input.greetingMeaning.trim(), lang: input.language.trim() || 'ko-KR', category: '인사', icon: '👋' }, ...extraPhrases],
     foods: [{ name: input.food.trim() || '대표 음식 알아보기', description: input.foodDescription.trim(), emoji: '🍽️' }],
     dailyLife: input.dailyLife.split('\n').map((item) => item.trim()).filter(Boolean).slice(0, 5),
     culture: [{ title: input.culture.trim() || '문화 알아보기', description: input.cultureDescription.trim(), emoji: '🎵' }],
     comparePrompt: input.comparePrompt.trim(),
     collectible: { id: `${input.id}-souvenir`, name: `${input.name.trim()} 여행 카드`, emoji: input.flag.trim() || '🌏' },
     quiz: input.quiz.map((q, index) => ({ ...q, id: `${input.id}-q${index + 1}`, options: q.options.slice(0, 4) })),
+    media: input.heroImage ? { hero: { src: input.heroImage, alt: `${input.name.trim()} 여행 대표 이미지`, caption: '선생님이 추가한 여행 탐험 이미지예요.', category: '풍경' }, gallery: [] } : undefined,
     custom: true,
   };
 }
@@ -44,6 +51,8 @@ export function TeacherContentStudio() {
   const [name, setName] = useState(''); const [englishName, setEnglishName] = useState(''); const [flag, setFlag] = useState('🌏'); const [region, setRegion] = useState('아시아');
   const [intro, setIntro] = useState(''); const [greeting, setGreeting] = useState(''); const [greetingMeaning, setGreetingMeaning] = useState('안녕하세요'); const [language, setLanguage] = useState('ko-KR');
   const [food, setFood] = useState(''); const [foodDescription, setFoodDescription] = useState(''); const [culture, setCulture] = useState(''); const [cultureDescription, setCultureDescription] = useState('');
+  const [phrasesText, setPhrasesText] = useState('고맙습니다|고맙다는 뜻의 표현|예절|\n또 만나요|헤어질 때 쓰는 표현|인사|');
+  const [heroImage, setHeroImage] = useState('');
   const [dailyLife, setDailyLife] = useState('학교에서 친구들과 함께 공부해요.\n가정과 지역에 따라 생활 모습이 다를 수 있어요.');
   const [comparePrompt, setComparePrompt] = useState('우리의 생활과 비슷한 점과 다른 점을 함께 찾아보세요.');
   const [quiz, setQuiz] = useState<QuizQuestion[]>(emptyQuestions);
@@ -105,10 +114,10 @@ export function TeacherContentStudio() {
     setBusy(true); setMessage('');
     try {
       const id = `custom-${Date.now()}`;
-      const country = makeCountry({ id, name, englishName, flag, region, intro, greeting, greetingMeaning, language, food, foodDescription, culture, cultureDescription, dailyLife, comparePrompt, quiz });
+      const country = makeCountry({ id, name, englishName, flag, region, intro, greeting, greetingMeaning, language, food, foodDescription, culture, cultureDescription, dailyLife, comparePrompt, quiz, phrasesText, heroImage });
       await saveTeacherCountry(country);
       setMessage('✅ 새 여행지를 저장했습니다. 학급 화면에서 학생에게 배포할 수 있습니다.');
-      setName(''); setEnglishName(''); setIntro(''); setGreeting(''); setFood(''); setFoodDescription(''); setCulture(''); setCultureDescription(''); setQuiz(emptyQuestions.map((q) => ({ ...q, options: [...q.options] })));
+      setName(''); setEnglishName(''); setIntro(''); setGreeting(''); setFood(''); setFoodDescription(''); setCulture(''); setCultureDescription(''); setPhrasesText(''); setHeroImage(''); setQuiz(emptyQuestions.map((q) => ({ ...q, options: [...q.options] })));
       await load();
     } catch (e) { setMessage(e instanceof Error ? e.message : '저장 중 오류가 발생했습니다.'); }
     finally { setBusy(false); }
@@ -122,6 +131,9 @@ export function TeacherContentStudio() {
         <div className="form-grid two"><label>나라·문화권 이름<input value={name} onChange={(e)=>setName(e.target.value)} placeholder="예: 브라질" /></label><label>영문 이름<input value={englishName} onChange={(e)=>setEnglishName(e.target.value)} placeholder="Brazil" /></label><label>표시 아이콘/국기<input value={flag} onChange={(e)=>setFlag(e.target.value)} /></label><label>지역<input value={region} onChange={(e)=>setRegion(e.target.value)} placeholder="남아메리카" /></label></div>
         <label>학생용 소개<textarea value={intro} onChange={(e)=>setIntro(e.target.value)} placeholder="지역과 사람에 따라 생활 모습이 다양하다는 점을 포함해 짧게 소개하세요." /></label>
         <div className="form-grid two"><label>인사말<input value={greeting} onChange={(e)=>setGreeting(e.target.value)} /></label><label>뜻<input value={greetingMeaning} onChange={(e)=>setGreetingMeaning(e.target.value)} /></label><label>음성 언어 코드<input value={language} onChange={(e)=>setLanguage(e.target.value)} placeholder="pt-BR" /></label><label>대표 음식 예시<input value={food} onChange={(e)=>setFood(e.target.value)} /></label></div>
+        <label>추가 말 배우기 · 한 줄에 <b>표현|뜻|분류|읽는 법</b><textarea value={phrasesText} onChange={(e)=>setPhrasesText(e.target.value)} placeholder={'Cảm ơn|고맙습니다|예절|깜 언\nBạn|친구|학교|반'} /></label>
+        <label>대표 이미지 파일 · 600KB 이하 권장<input type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" onChange={(e)=>{const file=e.target.files?.[0];if(!file)return;if(file.size>650000){setMessage('이미지는 600KB 정도 이하로 줄여 주세요.');return;}const reader=new FileReader();reader.onload=()=>setHeroImage(String(reader.result??''));reader.readAsDataURL(file);}} /></label>
+        {heroImage && <div className="studio-image-preview"><img src={heroImage} alt="추가한 대표 이미지 미리보기" /><button className="small-button" onClick={()=>setHeroImage('')}>이미지 제거</button></div>}
         <label>음식 설명<textarea value={foodDescription} onChange={(e)=>setFoodDescription(e.target.value)} /></label>
         <div className="form-grid two"><label>문화 탐구 제목<input value={culture} onChange={(e)=>setCulture(e.target.value)} /></label><label>문화 설명<input value={cultureDescription} onChange={(e)=>setCultureDescription(e.target.value)} /></label></div>
         <label>생활 모습 · 한 줄에 하나<textarea value={dailyLife} onChange={(e)=>setDailyLife(e.target.value)} /></label>

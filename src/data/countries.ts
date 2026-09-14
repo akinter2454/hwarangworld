@@ -1,6 +1,8 @@
 import type { Country } from '../types';
+import { countryMedia } from './countryMedia';
+import { languagePacks } from './languagePacks';
 
-export const countries: Country[] = [
+const baseCountries: Country[] = [
   {
     id: 'korea', name: '한국', englishName: 'Korea', flag: '🇰🇷', region: '동아시아', colorClass: 'sky',
     intro: '우리에게 익숙한 생활도 세계의 여러 문화와 이어져 있어요. 한국의 다양한 모습을 출발점으로 세계를 비교해 봅시다.',
@@ -305,5 +307,24 @@ export const countries: Country[] = [
     ],
   }
 ];
+
+export const countries: Country[] = baseCountries.map((country) => {
+  const media = country.media ?? countryMedia[country.id];
+  const image = media?.gallery?.find((item) => item.category === '문화') ?? media?.hero;
+  return {
+    ...country,
+    phrases: languagePacks[country.id] ?? country.phrases,
+    media,
+    quiz: image ? [...country.quiz, {
+      id: `${country.id}-image-literacy`,
+      question: '이 그림 자료를 보며 다른 문화를 배울 때 가장 좋은 태도는 무엇일까요?',
+      options: ['그림 한 장으로 그 나라 사람들을 모두 판단한다.', '그림은 한 가지 예라는 점을 기억하고 다른 자료와 함께 살펴본다.', '우리와 다른 모습만 찾아 이상하다고 말한다.', '유명한 전통이 오늘날 모든 사람의 생활이라고 생각한다.'],
+      answer: 1,
+      explanation: '이미지는 문화를 이해하는 여러 자료 중 하나예요. 한 장의 그림을 나라 전체의 모습으로 일반화하지 않고 다양한 자료와 함께 살펴보는 것이 좋아요.',
+      image: image.src,
+      imageAlt: image.alt,
+    }] : country.quiz,
+  };
+});
 
 export const countryById = (id: string) => countries.find((country) => country.id === id);

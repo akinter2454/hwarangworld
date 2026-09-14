@@ -1,7 +1,8 @@
-export type Tab = 'travel' | 'passport' | 'bag' | 'journal' | 'badges';
+export type Tab = 'travel' | 'language' | 'passport' | 'bag' | 'journal' | 'badges';
 
 const navItems: { id: Tab; icon: string; label: string }[] = [
   { id: 'travel', icon: '🌏', label: '여행' },
+  { id: 'language', icon: '🗣️', label: '말 도감' },
   { id: 'passport', icon: '🛂', label: '여권' },
   { id: 'bag', icon: '🎒', label: '가방' },
   { id: 'journal', icon: '📖', label: '일기' },

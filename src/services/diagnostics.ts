@@ -1,7 +1,7 @@
 import { countries } from '../data/countries';
 import { getAppBasePath, getHostingLabel, getHostingMode } from './deployment';
 
-export const APP_VERSION = '0.7.0';
+export const APP_VERSION = '0.8.0';
 const ERROR_KEY = 'multicultural-world-tour-error-log-v1';
 const CHECK_KEY = 'multicultural-world-tour-test-checklist-v1';
 

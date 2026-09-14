@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import type { Country } from '../types';
+import { CountryGallery } from '../components/CountryGallery';
 import { MiniGames } from '../components/MiniGames';
+import { PhraseLearningPanel } from '../components/PhraseLearningPanel';
 import { Quiz } from '../components/Quiz';
 import { SpeakButton } from '../components/SpeakButton';
 import { WorksheetButton } from '../components/WorksheetButton';
@@ -10,6 +12,7 @@ import { useTravel } from '../store/TravelContext';
 const sections = [
   ['hello', '👋', '친구 만나기'],
   ['language', '🗣️', '말 배우기'],
+  ['gallery', '🖼️', '그림 탐험'],
   ['game', '🎮', '미니게임'],
   ['food', '🍜', '음식 여행'],
   ['life', '🏠', '생활 탐험'],
@@ -27,6 +30,10 @@ export function CountryExplorer({ country, onBack }: { country: Country; onBack:
   const visited = player.visitedCountries.includes(country.id);
   const gameCount = [`${country.id}-language-game`, `${country.id}-culture-detective`]
     .filter((id) => player.activityCompletions.includes(id)).length;
+  const learnedCount = country.phrases.filter((_, index) => player.learnedPhraseIds.includes(`${country.id}:${index}`)).length;
+  const foodImage = country.media?.gallery?.find((item) => item.category === '음식');
+  const lifeImage = country.media?.gallery?.find((item) => item.category === '생활');
+  const cultureImage = country.media?.gallery?.find((item) => item.category === '문화');
 
   const finishQuiz = (score: number) => {
     recordQuizAttempt(country.id, score);
@@ -35,7 +42,7 @@ export function CountryExplorer({ country, onBack }: { country: Country; onBack:
       completeCountry(country.id, country.collectible.id, score);
       setMissionMessage(`🛂 ${country.name} 여행 완료! 여권 도장과 ${country.collectible.emoji} ${country.collectible.name}을 받았어요.`);
     } else {
-      setMissionMessage('💡 조금만 더 알아보고 다시 도전해 보세요. 3문제 중 2문제 이상 맞히면 도장을 받을 수 있어요.');
+      setMissionMessage(`💡 조금만 더 알아보고 다시 도전해 보세요. ${country.quiz.length}문제 중 ${Math.ceil(country.quiz.length * 0.66)}문제 이상 맞히면 도장을 받을 수 있어요.`);
     }
   };
 
@@ -47,18 +54,19 @@ export function CountryExplorer({ country, onBack }: { country: Country; onBack:
         <div className="country-header-actions"><WorksheetButton country={country} /><span className="stamp-status">{visited ? '✅ 완료' : '여행 중'}</span></div>
       </header>
 
-      <div className="arrival card">
-        <div className="airplane">✈️</div>
-        <div><p>세계여행 도착!</p><strong>{country.greeting.text}</strong><small>{easyKorean ? `${country.name}의 인사말과 생활 모습을 천천히 알아봐요.` : country.intro}</small></div>
+      <div className="arrival card arrival-v08">
+        {country.media?.hero && <img className="arrival-hero-image" src={country.media.hero.src} alt={country.media.hero.alt} />}
+        <div className="arrival-copy"><div className="airplane">✈️</div><p>세계여행 도착!</p><strong>{country.greeting.text}</strong><small>{easyKorean ? `${country.name}의 말과 생활 모습을 그림과 함께 천천히 알아봐요.` : country.intro}</small><SpeakButton text={country.greeting.text} lang={country.greeting.lang} /></div>
       </div>
 
-      <div className="journey-status card">
+      <div className="journey-status card journey-status-v08">
+        <div><span>🗣️</span><strong>배운 말 {learnedCount}/{country.phrases.length}</strong></div>
         <div><span>🎮</span><strong>미니게임 {gameCount}/2</strong></div>
         <div><span>🧠</span><strong>퀴즈 최고점 {player.quizBestScores[country.id] ?? 0}/{country.quiz.length}</strong></div>
         <div><span>🛂</span><strong>{visited ? '도장 획득' : '도전 중'}</strong></div>
       </div>
 
-      <div className="section-tabs" role="tablist">
+      <div className="section-tabs section-tabs-v08" role="tablist">
         {sections.map(([id, icon, label]) => (
           <button key={id} className={section === id ? 'active' : ''} onClick={() => setSection(id)}>
             <span>{icon}</span><small>{label}</small>
@@ -77,24 +85,14 @@ export function CountryExplorer({ country, onBack }: { country: Country; onBack:
         </div>
       )}
 
-      {section === 'language' && (
-        <div>
-          <div className="lesson-note">🔊 표현을 눌러 소리를 듣고 따라 말해 보세요. 발음은 기기에서 지원하는 음성에 따라 조금 다르게 들릴 수 있어요.</div>
-          <div className="content-grid">
-            {country.phrases.map((phrase) => (
-              <div className="card phrase-card" key={phrase.text}>
-                <span>💬</span><h3>{phrase.text}</h3><p>{phrase.meaning}</p><SpeakButton text={phrase.text} lang={phrase.lang} />
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
+      {section === 'language' && <PhraseLearningPanel country={country} />}
+      {section === 'gallery' && <CountryGallery country={country} />}
       {section === 'game' && <MiniGames country={country} />}
 
       {section === 'food' && (
         <div>
           <div className="lesson-note">🍽️ 한 나라 안에서도 지역과 가정마다 즐겨 먹는 음식은 달라요. 아래 음식은 널리 알려진 예시예요.</div>
+          {foodImage && <figure className="topic-image card"><img src={foodImage.src} alt={foodImage.alt} /><figcaption>{foodImage.caption}</figcaption></figure>}
           <div className="content-grid">
             {country.foods.map((food) => <div className="card food-card" key={food.name}><div>{food.emoji}</div><h3>{food.name}</h3><p>{food.description}</p></div>)}
           </div>
@@ -102,16 +100,18 @@ export function CountryExplorer({ country, onBack }: { country: Country; onBack:
       )}
 
       {section === 'life' && (
-        <div className="card content-card">
-          <h3>🏠 생활 모습을 살펴봐요</h3>
+        <div className="card content-card topic-with-image">
+          {lifeImage && <img className="topic-side-image" src={lifeImage.src} alt={lifeImage.alt} />}
+          <div><h3>🏠 생활 모습을 살펴봐요</h3>
           <div className="life-list">{country.dailyLife.map((item) => <div key={item}><span>✓</span><p>{item}</p></div>)}</div>
-          <div className="reflection"><strong>🔎 같은 점 찾기</strong><p>{country.comparePrompt}</p></div>
+          <div className="reflection"><strong>🔎 같은 점 찾기</strong><p>{country.comparePrompt}</p></div></div>
         </div>
       )}
 
       {section === 'culture' && (
         <div>
           <div className="lesson-note">🌏 전통문화는 오늘날 사람들의 생활 전체를 뜻하지 않아요. 현대적인 생활과 여러 전통이 함께 존재할 수 있어요.</div>
+          {cultureImage && <figure className="topic-image card"><img src={cultureImage.src} alt={cultureImage.alt} /><figcaption>{cultureImage.caption}</figcaption></figure>}
           <div className="content-grid">
             {country.culture.map((item) => <div className="card culture-card" key={item.title}><div>{item.emoji}</div><h3>{item.title}</h3><p>{item.description}</p></div>)}
           </div>

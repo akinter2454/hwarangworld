@@ -13,7 +13,7 @@ export function MiniGames({ country }: { country: Country }) {
   const [cultureScore, setCultureScore] = useState(0);
   const [cultureDone, setCultureDone] = useState(false);
 
-  const languageItems = country.phrases.slice(0, 3);
+  const languageItems = country.phrases.slice(0, 5);
   const currentPhrase = languageItems[languageIndex];
   const languageOptions = useMemo(() => {
     if (!currentPhrase) return [];
@@ -91,7 +91,7 @@ export function MiniGames({ country }: { country: Country }) {
       <section className="card mini-game-card">
         <div className="mini-game-title">
           <span>🗣️</span>
-          <div><small>미니게임 1</small><h3>세계 인사 스피드 퀴즈</h3></div>
+          <div><small>미니게임 1</small><h3>세계 말 스피드 퀴즈</h3></div>
           {languageCleared && <b className="clear-chip">완료 ✓</b>}
         </div>
         {!languageDone && currentPhrase ? (
