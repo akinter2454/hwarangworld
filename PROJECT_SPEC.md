@@ -1,4 +1,4 @@
-# PROJECT_SPEC — 다함께 GO! 세계여행 v1.1.0
+# PROJECT_SPEC — 다함께 GO! 세계여행 v1.2.0
 
 ## 목적
 
