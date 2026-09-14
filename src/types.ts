@@ -104,6 +104,9 @@ export type PlayerData = {
   /** key: `${countryId}:${imageCategory}` */
   photoObservations: Record<string, PhotoObservationEntry>;
   photoComparisons: PhotoComparisonEntry[];
+  /** Core 12-country world-tour completion certificate metadata. */
+  certificateIssuedAt: string;
+  certificateId: string;
 };
 
 export type TeacherCountryRecord = {

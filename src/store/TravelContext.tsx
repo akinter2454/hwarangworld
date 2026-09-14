@@ -18,6 +18,8 @@ const initialPlayer: PlayerData = {
   favoritePhraseIds: [],
   photoObservations: {},
   photoComparisons: [],
+  certificateIssuedAt: '',
+  certificateId: '',
 };
 
 type TravelContextValue = {
@@ -31,6 +33,7 @@ type TravelContextValue = {
   saveJournal: (entry: JournalEntry) => void;
   savePhotoObservation: (entry: PhotoObservationEntry) => void;
   savePhotoComparison: (entry: PhotoComparisonEntry) => void;
+  issueCertificate: () => void;
   resetProgress: () => void;
   replacePlayer: (player: PlayerData) => void;
 };
@@ -50,6 +53,8 @@ function normalizePlayer(parsed?: Partial<PlayerData> | null): PlayerData {
     favoritePhraseIds: parsed.favoritePhraseIds ?? [],
     photoObservations: parsed.photoObservations ?? {},
     photoComparisons: parsed.photoComparisons ?? [],
+    certificateIssuedAt: parsed.certificateIssuedAt ?? '',
+    certificateId: parsed.certificateId ?? '',
   };
 }
 
@@ -127,6 +132,17 @@ export function TravelProvider({ children }: { children: ReactNode }) {
     savePhotoComparison: (entry) => setPlayer((prev) => {
       const withoutSamePair = prev.photoComparisons.filter((item) => item.id !== entry.id);
       return { ...prev, photoComparisons: [...withoutSamePair, entry] };
+    }),
+    issueCertificate: () => setPlayer((prev) => {
+      if (prev.certificateIssuedAt && prev.certificateId) return prev;
+      const now = new Date();
+      const datePart = now.toISOString().slice(0, 10).replaceAll('-', '');
+      const randomPart = Math.random().toString(36).slice(2, 6).toUpperCase().padEnd(4, 'X');
+      return {
+        ...prev,
+        certificateIssuedAt: now.toISOString(),
+        certificateId: `MWT-${datePart}-${randomPart}`,
+      };
     }),
     resetProgress: () => setPlayer(initialPlayer),
     replacePlayer: (next) => setPlayer(normalizePlayer(next)),

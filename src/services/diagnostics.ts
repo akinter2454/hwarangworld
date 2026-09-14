@@ -2,9 +2,9 @@ import { countries } from '../data/countries';
 import { getAppBasePath, getHostingLabel, getHostingMode } from './deployment';
 import { CURATED_COMMONS_FILES } from '../data/curatedCommonsAllowlist';
 
-export const APP_VERSION = '1.0.0';
+export const APP_VERSION = '1.1.0';
 const ERROR_KEY = 'multicultural-world-tour-error-log-v1';
-const CHECK_KEY = 'multicultural-world-tour-test-checklist-v2';
+const CHECK_KEY = 'multicultural-world-tour-test-checklist-v3';
 
 export type ErrorLog = { time: string; message: string; source?: string };
 export type DiagnosticResult = { id: string; label: string; ok: boolean; detail: string };
@@ -60,6 +60,7 @@ export const testChecklistItems = [
   '사진 관찰 미션에서 보이는 것·궁금한 것·사진만으로 알 수 없는 것을 저장할 수 있다.',
   '두 나라 사진 비교 기록을 저장할 수 있다.',
   '포토북에서 관찰·비교·일기 기록이 자동으로 모이고 인쇄/PDF가 가능하다.',
+  '기본 12개국 완주 후 여권에서 인증서를 발급하고 인쇄/PDF 저장할 수 있다.',
   '교사 콘텐츠 제작기에서 새 여행지를 저장할 수 있다.',
   '쉬운 한국어와 다국어 빠른 안내를 켜고 끌 수 있다.',
   '교사 수업 모드·미션 배포 기능이 필요한 방식으로 표시된다.',

@@ -1,6 +1,7 @@
 import { countries } from '../data/countries';
 import { useClassroom } from '../store/ClassroomContext';
 import { useTravel } from '../store/TravelContext';
+import { CompletionCertificate } from '../components/CompletionCertificate';
 
 export function Passport() {
   const { player } = useTravel();
@@ -18,6 +19,7 @@ export function Passport() {
           })}
         </div>
       </div>
+      <CompletionCertificate />
     </section>
   );
 }

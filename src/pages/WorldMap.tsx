@@ -27,6 +27,7 @@ export function WorldMap({ onSelect, onOpenTeacher, onJoinClass }: { onSelect: (
   const [flyingTo, setFlyingTo] = useState<string | null>(null);
   const allCountries = useMemo(() => [...countries, ...customCountries.filter((custom) => !countries.some((builtIn) => builtIn.id === custom.id))], [customCountries]);
   const completed = allCountries.filter((country) => player.visitedCountries.includes(country.id)).length;
+  const coreTourComplete = countries.every((country) => player.visitedCountries.includes(country.id));
 
   const regions = useMemo(() => ['전체', ...new Set(allCountries.map((country) => country.region))], [allCountries]);
   const filtered = region === '전체' ? allCountries : allCountries.filter((country) => country.region === region);
@@ -68,6 +69,8 @@ export function WorldMap({ onSelect, onOpenTeacher, onJoinClass }: { onSelect: (
       </header>
 
       <DailyPhraseCard countries={allCountries} />
+
+      {coreTourComplete && <div className="world-complete-banner card"><span>🎓</span><div><strong>세계여행 완주!</strong><p>기본 {countries.length}개국을 모두 여행했어요. 아래 <b>여권</b> 메뉴에서 세계시민 탐험가 인증서를 발급하고 PDF로 저장할 수 있어요.</p></div></div>}
 
       <div className="map-hero card">
         <div className="map-globe">🌍</div>
