@@ -1,0 +1,11 @@
+{
+  "name": "다함께 GO! 세계여행",
+  "short_name": "세계여행",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#2563eb",
+  "lang": "ko-KR",
+  "description": "다름을 만나고, 같음을 발견하는 다문화 세계여행 학습 플랫폼"
+}
