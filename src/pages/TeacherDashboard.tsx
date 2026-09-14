@@ -30,9 +30,9 @@ export function TeacherDashboard({ embedded = false }: { embedded?: boolean }) {
   };
 
   const exportCsv = () => {
-    const rows = [['국가', '여행완료', '최고점', '전체문항', '도전횟수', '미니게임완료']];
+    const rows = [['국가', '여행완료', '최고점', '전체문항', '도전횟수', '미니게임완료', '사진관찰기록']];
     countries.forEach((country) => {
-      const miniGames = [`${country.id}-language-game`, `${country.id}-culture-detective`]
+      const miniGames = [`${country.id}-language-game`, `${country.id}-culture-detective`, `${country.id}-photo-word-game`]
         .filter((id) => player.activityCompletions.includes(id)).length;
       rows.push([
         country.name,
@@ -40,7 +40,8 @@ export function TeacherDashboard({ embedded = false }: { embedded?: boolean }) {
         String(player.quizBestScores[country.id] ?? 0),
         String(country.quiz.length),
         String(player.quizAttempts[country.id] ?? 0),
-        `${miniGames}/2`,
+        `${miniGames}/3`,
+        String(Object.values(player.photoObservations).filter((entry) => entry.countryId === country.id).length),
       ]);
     });
     const csv = '\uFEFF' + rows.map((row) => row.map((cell) => `"${cell.replaceAll('"', '""')}"`).join(',')).join('\n');
@@ -59,14 +60,14 @@ export function TeacherDashboard({ embedded = false }: { embedded?: boolean }) {
         <div className="card stat-card"><span>🌏</span><strong>{completed}/{countries.length}</strong><small>방문 국가</small></div>
         <div className="card stat-card"><span>🧠</span><strong>{avgScore}%</strong><small>퀴즈 최고점 평균</small></div>
         <div className="card stat-card"><span>🔁</span><strong>{totalAttempts}</strong><small>총 퀴즈 도전</small></div>
-        <div className="card stat-card"><span>🎮</span><strong>{player.activityCompletions.length}</strong><small>미니게임 완료</small></div>
+        <div className="card stat-card"><span>📸</span><strong>{Object.keys(player.photoObservations).length}</strong><small>사진 관찰 기록</small></div>
       </div>
 
       <section className="card teacher-student-card">
         <div>
           <small>현재 여행자</small>
           <h3>🛂 {player.nickname || '지구별 탐험가'}</h3>
-          <p>⭐ {player.stars} · 일기 {Object.keys(player.journals).length}개 · 수집품 {player.collectedItems.length}개</p>
+          <p>⭐ {player.stars} · 일기 {Object.keys(player.journals).length}개 · 사진 관찰 {Object.keys(player.photoObservations).length}개 · 비교 {player.photoComparisons.length}개</p>
         </div>
         <div className="export-actions">
           <button className="small-button" onClick={exportCsv}>CSV 내보내기</button>
@@ -77,14 +78,14 @@ export function TeacherDashboard({ embedded = false }: { embedded?: boolean }) {
       <FreeClassAnalysis learners={[{ nickname: player.nickname || '지구별 탐험가', progress: player }]} totalCountries={countries.length} />
 
       <section className="card country-progress-table">
-        <div className="table-heading"><h3>나라별 학습 진행</h3><small>퀴즈·미니게임 기록</small></div>
+        <div className="table-heading"><h3>나라별 학습 진행</h3><small>퀴즈·미니게임·사진 관찰 기록</small></div>
         <div className="teacher-table-scroll">
           <table>
-            <thead><tr><th>여행지</th><th>상태</th><th>최고점</th><th>도전</th><th>게임</th></tr></thead>
+            <thead><tr><th>여행지</th><th>상태</th><th>최고점</th><th>도전</th><th>게임</th><th>사진관찰</th></tr></thead>
             <tbody>
               {countries.map((country) => {
                 const best = player.quizBestScores[country.id] ?? 0;
-                const games = [`${country.id}-language-game`, `${country.id}-culture-detective`]
+                const games = [`${country.id}-language-game`, `${country.id}-culture-detective`, `${country.id}-photo-word-game`]
                   .filter((id) => player.activityCompletions.includes(id)).length;
                 return (
                   <tr key={country.id}>
@@ -92,7 +93,8 @@ export function TeacherDashboard({ embedded = false }: { embedded?: boolean }) {
                     <td>{player.visitedCountries.includes(country.id) ? '✅ 완료' : '⏳ 탐험 중'}</td>
                     <td>{best}/{country.quiz.length}</td>
                     <td>{player.quizAttempts[country.id] ?? 0}회</td>
-                    <td>{games}/2</td>
+                    <td>{games}/3</td>
+                    <td>{Object.values(player.photoObservations).filter((entry) => entry.countryId === country.id).length}개</td>
                   </tr>
                 );
               })}

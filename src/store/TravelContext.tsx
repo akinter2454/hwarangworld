@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
-import type { JournalEntry, PlayerData } from '../types';
+import type { JournalEntry, PhotoComparisonEntry, PhotoObservationEntry, PlayerData } from '../types';
 
 // v0.1에서 사용하던 키를 그대로 유지해 기존 학생 진행도를 보존합니다.
 const STORAGE_KEY = 'multicultural-world-tour-player-v1';
@@ -16,6 +16,8 @@ const initialPlayer: PlayerData = {
   quizAttempts: {},
   learnedPhraseIds: [],
   favoritePhraseIds: [],
+  photoObservations: {},
+  photoComparisons: [],
 };
 
 type TravelContextValue = {
@@ -27,28 +29,36 @@ type TravelContextValue = {
   markPhraseLearned: (phraseId: string) => void;
   toggleFavoritePhrase: (phraseId: string) => void;
   saveJournal: (entry: JournalEntry) => void;
+  savePhotoObservation: (entry: PhotoObservationEntry) => void;
+  savePhotoComparison: (entry: PhotoComparisonEntry) => void;
   resetProgress: () => void;
   replacePlayer: (player: PlayerData) => void;
 };
 
 const TravelContext = createContext<TravelContextValue | null>(null);
 
+function normalizePlayer(parsed?: Partial<PlayerData> | null): PlayerData {
+  if (!parsed) return initialPlayer;
+  return {
+    ...initialPlayer,
+    ...parsed,
+    journals: parsed.journals ?? {},
+    activityCompletions: parsed.activityCompletions ?? [],
+    quizBestScores: parsed.quizBestScores ?? {},
+    quizAttempts: parsed.quizAttempts ?? {},
+    learnedPhraseIds: parsed.learnedPhraseIds ?? [],
+    favoritePhraseIds: parsed.favoritePhraseIds ?? [],
+    photoObservations: parsed.photoObservations ?? {},
+    photoComparisons: parsed.photoComparisons ?? [],
+  };
+}
+
 export function TravelProvider({ children }: { children: ReactNode }) {
   const [player, setPlayer] = useState<PlayerData>(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (!raw) return initialPlayer;
-      const parsed = JSON.parse(raw) as Partial<PlayerData>;
-      return {
-        ...initialPlayer,
-        ...parsed,
-        journals: parsed.journals ?? {},
-        activityCompletions: parsed.activityCompletions ?? [],
-        quizBestScores: parsed.quizBestScores ?? {},
-        quizAttempts: parsed.quizAttempts ?? {},
-        learnedPhraseIds: parsed.learnedPhraseIds ?? [],
-        favoritePhraseIds: parsed.favoritePhraseIds ?? [],
-      };
+      return normalizePlayer(JSON.parse(raw) as Partial<PlayerData>);
     } catch {
       return initialPlayer;
     }
@@ -107,8 +117,19 @@ export function TravelProvider({ children }: { children: ReactNode }) {
       ...prev,
       journals: { ...prev.journals, [entry.countryId]: entry },
     })),
+    savePhotoObservation: (entry) => setPlayer((prev) => ({
+      ...prev,
+      photoObservations: {
+        ...prev.photoObservations,
+        [`${entry.countryId}:${entry.imageCategory}`]: entry,
+      },
+    })),
+    savePhotoComparison: (entry) => setPlayer((prev) => {
+      const withoutSamePair = prev.photoComparisons.filter((item) => item.id !== entry.id);
+      return { ...prev, photoComparisons: [...withoutSamePair, entry] };
+    }),
     resetProgress: () => setPlayer(initialPlayer),
-    replacePlayer: (next) => setPlayer({ ...initialPlayer, ...next, journals: next.journals ?? {}, activityCompletions: next.activityCompletions ?? [], quizBestScores: next.quizBestScores ?? {}, quizAttempts: next.quizAttempts ?? {}, learnedPhraseIds: next.learnedPhraseIds ?? [], favoritePhraseIds: next.favoritePhraseIds ?? [] }),
+    replacePlayer: (next) => setPlayer(normalizePlayer(next)),
   }), [player]);
 
   return <TravelContext.Provider value={value}>{children}</TravelContext.Provider>;

@@ -6,12 +6,14 @@ type BadgeRule = {
   name: string;
   description: string;
   need: number;
-  kind: 'travel' | 'language' | 'favorite';
+  kind: 'travel' | 'language' | 'favorite' | 'photo' | 'compare';
 };
 
 const badgeRules: BadgeRule[] = [
   { id: 'first', icon: '🛫', name: '첫 여행', description: '첫 나라 여행을 완료해요.', need: 1, kind: 'travel' },
   { id: 'hello', icon: '👋', name: '세계 인사왕', description: '3개 나라를 여행해요.', need: 3, kind: 'travel' },
+  { id: 'photo3', icon: '📸', name: '사진 탐정', description: '사진 관찰 기록을 3개 남겨요.', need: 3, kind: 'photo' },
+  { id: 'compare2', icon: '↔️', name: '비교 탐험가', description: '두 나라 사진 비교를 2번 기록해요.', need: 2, kind: 'compare' },
   { id: 'word10', icon: '🗣️', name: '말 탐험가', description: '세계의 말 10개를 배워요.', need: 10, kind: 'language' },
   { id: 'word30', icon: '💬', name: '말 수집가', description: '세계의 말 30개를 배워요.', need: 30, kind: 'language' },
   { id: 'favorite10', icon: '⭐', name: '내 마음의 한마디', description: '마음에 드는 표현 10개를 즐겨찾기해요.', need: 10, kind: 'favorite' },
@@ -22,7 +24,13 @@ const badgeRules: BadgeRule[] = [
 
 export function Badges() {
   const { player, resetProgress } = useTravel();
-  const countFor = (badge: BadgeRule) => badge.kind === 'travel' ? player.visitedCountries.length : badge.kind === 'language' ? player.learnedPhraseIds.length : player.favoritePhraseIds.length;
+  const countFor = (badge: BadgeRule) => {
+    if (badge.kind === 'travel') return player.visitedCountries.length;
+    if (badge.kind === 'language') return player.learnedPhraseIds.length;
+    if (badge.kind === 'favorite') return player.favoritePhraseIds.length;
+    if (badge.kind === 'photo') return Object.keys(player.photoObservations).length;
+    return player.photoComparisons.length;
+  };
   return (
     <section className="page">
       <header className="page-header"><div><p className="eyebrow">WORLD CITIZEN</p><h2>🏆 나의 세계시민 배지</h2></div></header>

@@ -142,14 +142,14 @@ export function WorldMap({ onSelect, onOpenTeacher, onJoinClass }: { onSelect: (
       <div className="region-grid">
         {filtered.map((country) => {
           const visited = player.visitedCountries.includes(country.id);
-          const gameCount = [`${country.id}-language-game`, `${country.id}-culture-detective`]
+          const gameCount = [`${country.id}-language-game`, `${country.id}-culture-detective`, `${country.id}-photo-word-game`]
             .filter((id) => player.activityCompletions.includes(id)).length;
           return (
             <button key={country.id} className={`country-card ${country.colorClass}`} onClick={() => startFlight(country.id)}>
               <span className="country-flag">{country.flag}</span>
               <span className="country-region">{country.region}{country.custom ? ' · 선생님 제작' : ''}</span>
               <strong>{country.name}</strong>
-              <small>{visited ? `✅ 여행 완료 · 게임 ${gameCount}/2` : `✈️ 여행하기 · 게임 ${gameCount}/2`}</small>
+              <small>{visited ? `✅ 여행 완료 · 게임 ${gameCount}/3` : `✈️ 여행하기 · 게임 ${gameCount}/3`}</small>
             </button>
           );
         })}
