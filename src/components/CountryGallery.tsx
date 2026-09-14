@@ -17,12 +17,12 @@ export function CountryGallery({ country }: { country: Country }) {
     ...photosForCountry(country.id),
   ].filter(Boolean) as CountryImage[], [country, libraryVersion]);
 
-  if (!images.length) return <div className="card content-card"><h3>🖼️ 이미지 탐험</h3><p>이 여행지에는 아직 이미지가 등록되지 않았어요.</p></div>;
+  if (!images.length) return <div className="card content-card"><h3>🖼️ 사진·그림 탐험</h3><p>이 여행지에는 아직 이미지가 등록되지 않았어요.</p></div>;
 
   return <div>
     <div className="lesson-note photo-safety-note">
       <strong>📷 실제 사진 안전모드</strong>
-      <span>학생에게는 자동 검색 결과를 보여주지 않아요. 기본 자료는 사전 선별한 Wikimedia Commons 사진만 사용하고, 교사 추가 자료도 미리보기와 안전 확인을 거쳐야 공개됩니다. 사진 한 장을 그 나라 전체 모습으로 일반화하지 않아요.</span>
+      <span>학생에게는 자동 검색 결과를 보여주지 않아요. 기본 자료는 사전 선별한 실제 사진과 교육용 그림 자료를 함께 보여 줍니다. 교사 추가 자료도 미리보기와 안전 확인을 거쳐야 공개됩니다. 사진이나 그림 한 장만 보고 그 나라 전체 모습이라고 일반화하지 않아요.</span>
     </div>
     <div className="country-gallery-grid">
       {images.map((image, index) => <button className="gallery-card card" key={`${image.category}-${image.commonsFile ?? image.src}-${index}`} onClick={() => setSelected(image)}>

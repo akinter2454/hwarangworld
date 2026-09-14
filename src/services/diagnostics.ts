@@ -2,7 +2,7 @@ import { countries } from '../data/countries';
 import { getAppBasePath, getHostingLabel, getHostingMode } from './deployment';
 import { CURATED_COMMONS_FILES } from '../data/curatedCommonsAllowlist';
 
-export const APP_VERSION = '1.1.0';
+export const APP_VERSION = '1.2.0';
 const ERROR_KEY = 'multicultural-world-tour-error-log-v1';
 const CHECK_KEY = 'multicultural-world-tour-test-checklist-v3';
 
@@ -43,7 +43,7 @@ export function runDiagnostics(cloudConfigured: boolean, enrolled: boolean): Dia
   results.push({ id: 'content', label: '기본 여행 콘텐츠', ok: quizOkay && countries.length >= 12, detail: `${countries.length}개 국가 · 퀴즈 구조 ${quizOkay ? '정상' : '확인 필요'}` });
   results.push({ id: 'speech', label: '음성 읽기', ok: 'speechSynthesis' in window, detail: 'speechSynthesis' in window ? '기기 음성 기능 사용 가능' : '이 브라우저에서 음성 기능 미지원' });
   results.push({ id: 'network', label: '현재 네트워크', ok: navigator.onLine, detail: navigator.onLine ? '온라인으로 감지됨' : '오프라인으로 감지됨' });
-  results.push({ id: 'photos', label: '실사진 안전목록', ok: CURATED_COMMONS_FILES.length === 48, detail: `Wikimedia Commons 사전 선별 사진 ${CURATED_COMMONS_FILES.length}개 · 나라별 4장 · 실시간 검색 사용 안 함` });
+  results.push({ id: 'photos', label: '실사진 안전목록', ok: CURATED_COMMONS_FILES.length === 48, detail: `Wikimedia Commons 사전 선별 사진 ${CURATED_COMMONS_FILES.length}개 + 나라별 보조 그림 2장 · 실시간 검색 사용 안 함` });
   results.push({ id: 'pwa', label: 'PWA 지원', ok: 'serviceWorker' in navigator, detail: 'serviceWorker' in navigator ? '서비스워커 사용 가능' : '서비스워커 미지원' });
   const hostingMode = getHostingMode();
   results.push({ id: 'hosting', label: '배포 환경', ok: true, detail: `${getHostingLabel()} · base ${getAppBasePath()}${hostingMode === 'github-pages' ? ' · GitHub Pages 경로 자동 대응' : ''}` });
@@ -67,7 +67,7 @@ export const testChecklistItems = [
   '휴대폰 또는 태블릿 화면에서 버튼과 글자가 잘리지 않는다.',
   '진단센터에서 오류정보 복사 기능이 동작한다.',
   'GitHub Pages 주소에서 새로고침해도 첫 화면이 정상적으로 열린다.',
-  '그림 탐험에서 나라별 풍경·음식·생활·문화 실사진 4장과 출처가 표시된다.',
+  '그림 탐험에서 나라별 실사진 4장과 보조 그림 2장이 함께 표시된다.',
   '교사 사진 관리실에서 승인 전 안전 체크가 필수로 표시된다.',
 ];
 

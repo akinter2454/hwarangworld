@@ -105,7 +105,7 @@ export function PhotoLibraryManager() {
   return <section className="photo-library-manager">
     <div className="card photo-library-intro">
       <div><span className="photo-library-icon">📷</span></div>
-      <div><h3>학생용 사진 자료 관리실</h3><p>기본 자료는 실시간 검색이 아니라 미리 검토된 <b>{curatedCommonsCount}장</b>의 Wikimedia Commons 사진만 사용합니다. 추가 자료도 학생에게 바로 공개되지 않고 교사가 원본·출처·연령 적합성을 직접 확인해야 합니다.</p></div>
+      <div><h3>학생용 사진 자료 관리실</h3><p>기본 자료는 실시간 검색이 아니라 미리 검토된 <b>{curatedCommonsCount}장</b>의 Wikimedia Commons 사진과 나라별 보조 그림 자료를 함께 사용합니다. 추가 자료도 학생에게 바로 공개되지 않고 교사가 원본·출처·연령 적합성을 직접 확인해야 합니다.</p></div>
     </div>
 
     <div className="photo-library-layout">
@@ -149,7 +149,7 @@ export function PhotoLibraryManager() {
 
     <section className="card teacher-approved-library">
       <div className="table-heading"><div><h3>③ 교사 승인 추가 사진</h3><small>이 목록은 이 브라우저에 저장됩니다. 다른 기기로 옮길 때는 JSON 내보내기/가져오기를 사용하세요.</small></div><div className="library-transfer-actions"><button className="small-button" disabled={!approved.length} onClick={() => download('다문화-세계여행-승인사진.json', exportTeacherPhotoLibrary())}>⬇️ 목록 내보내기</button><button className="small-button" onClick={() => importRef.current?.click()}>⬆️ 목록 가져오기</button><input ref={importRef} type="file" accept="application/json,.json" hidden onChange={(e) => { const file=e.target.files?.[0]; if (file) void importFile(file); }} /></div></div>
-      {!approved.length ? <div className="empty-studio">추가 승인한 사진이 없습니다. 기본 48장만 학생에게 표시됩니다.</div> : <div className="approved-photo-list">{approved.map((item) => <div className="approved-photo-row" key={item.id}><div><strong>{countries.find((c)=>c.id===item.countryId)?.flag} {countries.find((c)=>c.id===item.countryId)?.name} · {item.category}</strong><span>{item.commonsFile}</span><small>{item.caption}</small></div><div><a className="small-button link-button" href={commonsSourcePage(item.commonsFile)} target="_blank" rel="noopener noreferrer">원본</a><button className="small-button danger-button" onClick={() => { removeTeacherApprovedPhoto(item.id); setApproved(listTeacherApprovedPhotos()); }}>삭제</button></div></div>)}</div>}
+      {!approved.length ? <div className="empty-studio">추가 승인한 사진이 없습니다. 기본 실사진과 보조 그림 자료만 학생에게 표시됩니다.</div> : <div className="approved-photo-list">{approved.map((item) => <div className="approved-photo-row" key={item.id}><div><strong>{countries.find((c)=>c.id===item.countryId)?.flag} {countries.find((c)=>c.id===item.countryId)?.name} · {item.category}</strong><span>{item.commonsFile}</span><small>{item.caption}</small></div><div><a className="small-button link-button" href={commonsSourcePage(item.commonsFile)} target="_blank" rel="noopener noreferrer">원본</a><button className="small-button danger-button" onClick={() => { removeTeacherApprovedPhoto(item.id); setApproved(listTeacherApprovedPhotos()); }}>삭제</button></div></div>)}</div>}
     </section>
   </section>;
 }
