@@ -1,4 +1,4 @@
-const CACHE_NAME = 'world-tour-v8';
+const CACHE_NAME = 'world-tour-v10-0';
 const scopeUrl = new URL(self.registration.scope);
 const appUrl = new URL('./', scopeUrl).href;
 const indexUrl = new URL('index.html', scopeUrl).href;

@@ -1,13 +1,15 @@
-# GitHub Pages 배포 방법 — v0.8
+# GitHub Pages 배포 방법 — v1.0.0
 
-v0.8부터 기본 배포 방식은 **GitHub Pages**입니다. 학교 PC에서 Node.js나 BAT 파일을 실행할 필요가 없습니다.
+v0.7부터 기본 배포 방식은 **GitHub Pages**이며, v1.0.0도 같은 배포 구조를 유지합니다. 학교 PC에서 Node.js나 BAT 파일을 실행할 필요가 없습니다.
 
 ## 처음 한 번만 설정
 
 1. GitHub에서 새 저장소를 만듭니다. 예: `multicultural-world-tour`
 2. 이 프로젝트 ZIP을 압축 해제한 뒤 **프로젝트 내부 파일 전체**를 저장소 루트에 업로드합니다.
-   - `.github` 폴더도 반드시 함께 올립니다.
+   - 처음 배포라면 `.github` 폴더도 필요합니다.
+   - 이미 Pages가 정상 배포되는 기존 저장소라면 `.github`를 삭제하지 말고 그대로 유지하세요.
    - ZIP 파일 자체를 올리는 것이 아니라 압축을 푼 파일을 올립니다.
+   - `.github`가 빠졌을 때는 `GITHUB_WORKFLOW_BACKUP/`의 사본을 사용할 수 있습니다.
 3. 저장소의 `Settings` → `Pages`로 이동합니다.
 4. `Build and deployment` → `Source`를 **GitHub Actions**로 선택합니다.
 5. `Actions` 탭에서 `Deploy to GitHub Pages`가 실행되는지 확인합니다.
@@ -17,7 +19,7 @@ v0.8부터 기본 배포 방식은 **GitHub Pages**입니다. 학교 PC에서 No
 
 `https://사용자이름.github.io/저장소이름/`
 
-저장소 이름을 바꿔도 v0.8은 GitHub Actions 빌드 시 Vite base 경로를 자동 계산합니다.
+저장소 이름을 바꿔도 v1.0.0은 GitHub Actions 빌드 시 Vite base 경로를 자동 계산합니다.
 
 ## 이후 업데이트
 

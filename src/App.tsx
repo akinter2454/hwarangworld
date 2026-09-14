@@ -14,6 +14,7 @@ import { Home } from './pages/Home';
 import { Journal } from './pages/Journal';
 import { LanguageBook } from './pages/LanguageBook';
 import { Passport } from './pages/Passport';
+import { Portfolio } from './pages/Portfolio';
 import { TeacherPortal } from './pages/TeacherPortal';
 import { WorldMap } from './pages/WorldMap';
 import { useTravel } from './store/TravelContext';
@@ -66,6 +67,7 @@ export default function App() {
         {tab === 'passport' && <Passport />}
         {tab === 'bag' && <Bag />}
         {tab === 'journal' && <Journal />}
+        {tab === 'portfolio' && <Portfolio />}
         {tab === 'badges' && <Badges />}
       </main>
       <BottomNav current={tab} onChange={setTab} />
