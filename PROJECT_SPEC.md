@@ -1,4 +1,4 @@
-# PROJECT_SPEC — 다함께 GO! 세계여행 v1.0.0
+# PROJECT_SPEC — 다함께 GO! 세계여행 v1.1.0
 
 ## 목적
 
@@ -6,9 +6,9 @@
 
 ## 핵심 학생 흐름
 
-여권 생성 → 세계지도 → 나라 여행 → 말 배우기 → 실사진 탐험 → 사진 관찰 → 두 나라 비교 → 미니게임/퀴즈 → 여권 도장 → 일기 → 포토북
+여권 생성 → 세계지도 → 나라 여행 → 말 배우기 → 실사진 탐험 → 사진 관찰 → 두 나라 비교 → 미니게임/퀴즈 → 여권 도장 → 일기 → 포토북 → 12개국 완주 인증서
 
-## v1.0 핵심 학습 설계
+## v1.1 핵심 학습 설계
 
 ### 사진 관찰 미션
 학생이 사진에서 직접 보이는 것과 추측을 구분하고, '이 사진만으로 알 수 없는 것'을 반드시 기록합니다.
@@ -24,8 +24,18 @@
 
 ## 저장
 
-기존 localStorage 키 `multicultural-world-tour-player-v1`을 유지합니다. PlayerData에는 v1.0부터 `photoObservations`, `photoComparisons`가 추가됩니다.
+기존 localStorage 키 `multicultural-world-tour-player-v1`을 유지합니다. PlayerData에는 `photoObservations`, `photoComparisons`와 v1.1의 `certificateIssuedAt`, `certificateId`가 함께 저장됩니다.
 
 ## 배포
 
 GitHub Pages + GitHub Actions를 기본으로 합니다. Supabase는 여러 학생 기기의 학급 동기화가 필요한 경우에만 선택적으로 사용합니다.
+
+
+## v1.1 완주 인증서
+
+- 발급 조건: 기본 제공 12개국을 모두 여행 완료한 학생
+- 교사 제작 추가 여행지는 인증서 필수 조건에 포함하지 않아 학급별 콘텐츠 추가가 발급을 막지 않음
+- 최초 발급 시 발급일과 고유 인증번호를 PlayerData에 저장
+- 인증서 표시 이름은 출력 시 수정할 수 있으며 별도 학습 데이터로 저장하지 않음
+- 브라우저 인쇄 기능을 사용해 A4 가로형 인증서를 출력하거나 PDF로 저장
+- 인증서에는 기본 12개국 완주, 배운 말 수, 사진 관찰 수, 나라 비교 수를 함께 표시
