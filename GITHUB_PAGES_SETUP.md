@@ -1,6 +1,6 @@
-# GitHub Pages 배포 방법 — v0.7
+# GitHub Pages 배포 방법 — v0.8
 
-v0.7부터 기본 배포 방식은 **GitHub Pages**입니다. 학교 PC에서 Node.js나 BAT 파일을 실행할 필요가 없습니다.
+v0.8부터 기본 배포 방식은 **GitHub Pages**입니다. 학교 PC에서 Node.js나 BAT 파일을 실행할 필요가 없습니다.
 
 ## 처음 한 번만 설정
 
@@ -17,7 +17,7 @@ v0.7부터 기본 배포 방식은 **GitHub Pages**입니다. 학교 PC에서 No
 
 `https://사용자이름.github.io/저장소이름/`
 
-저장소 이름을 바꿔도 v0.7은 GitHub Actions 빌드 시 Vite base 경로를 자동 계산합니다.
+저장소 이름을 바꿔도 v0.8은 GitHub Actions 빌드 시 Vite base 경로를 자동 계산합니다.
 
 ## 이후 업데이트
 

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img">
+  <rect width="960" height="540" rx="36" fill="#dcfce7"/>
+  <circle cx="795" cy="100" r="190" fill="#86efac" opacity=".45"/>
+  <circle cx="125" cy="450" r="155" fill="#86efac" opacity=".30"/>
+  <path d="M0 410 C180 335 315 470 490 400 C660 335 770 385 960 300 V540 H0Z" fill="#86efac" opacity=".55"/>
+  <rect x="80" y="70" width="800" height="400" rx="34" fill="#fff" opacity=".55"/>
+  <text x="130" y="180" font-size="82" font-family="Segoe UI Emoji, Apple Color Emoji, sans-serif">🇻🇳</text>
+  <text x="480" y="340" text-anchor="middle" font-size="150" font-family="Segoe UI Emoji, Apple Color Emoji, sans-serif">🏫</text>
+  <text x="150" y="410" font-size="50" font-family="Segoe UI Emoji, Apple Color Emoji, sans-serif">📚</text>
+  <text x="760" y="410" font-size="50" font-family="Segoe UI Emoji, Apple Color Emoji, sans-serif">🎒</text>
+  <text x="740" y="170" font-size="42" font-family="Segoe UI Emoji, Apple Color Emoji, sans-serif">🧑‍🤝‍🧑</text>
+</svg>
