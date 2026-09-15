@@ -1,28 +1,75 @@
-# v1.2.0 사전 선별 실사진 목록
+# CURATED PHOTO LIST (v1.2.2)
 
-학생 기본 화면은 아래 **48개 Wikimedia Commons 파일**만 고정 허용목록으로 사용합니다. 학생에게 실시간 검색 결과를 제공하지 않습니다.
+학생용 그림 탐험에 표시되는 사전 선별 Wikimedia Commons 사진 목록입니다.
 
-| 국가 | 도시·지역 | 음식 | 생활·거리 | 문화·공공장소 |
-|---|---|---|---|---|
-| 한국 | `Road in Seoul, KOREA.jpg` | `Korean.food-Bibimbap-01.jpg` | `Streets of Seoul.jpg` | `Gyeongbokgung, Seoul.jpg` |
-| 베트남 | `Vietnam, Hanoi, Life on the streets of Hanoi.jpg` | `Pho in Saigon.jpg` | `Daily life in Vietnam Street vendor.jpg` | `Hoan Kiem Lake photo.jpg` |
-| 중국 | `Street life in Beijing 07.jpg` | `Jiaozi.jpg` | `Street life in Beijing 02.jpg` | `Temple-of-heaven.jpg` |
-| 몽골 | `Ulaanbaatar city Mongolia 20230926 102617.jpg` | `Mongolian buuz.jpg` | `Peace Avenue, Ulaanbaatar, Mongolia - 2023.jpg` | `Mongolia-terelj.jpg` |
-| 필리핀 | `Manila street.jpg` | `Adobo Filipino style.jpg` | `Binondo - Quintin Paredes (Manila; 11-24-2019).jpg` | `Rizal Park.jpg` |
-| 태국 | `Bangkok, Thailand skyline, 30 March 2023.jpg` | `Pad Thai in Thailand.jpg` | `Bangkok Chatuchak Market 1.jpg` | `ThaiBangkokWatArun.jpg` |
-| 우즈베키스탄 | `The Street of Tashkent.jpg` | `Plov.jpg` | `Street in Tashkent.jpg` | `Registan Samarkand.jpg` |
-| 인도 | `Street delhi connaught place.jpg` | `INDIAN thali.jpg` | `Street scene in Old Delhi (5621280682).jpg` | `India gate new delhi.jpg` |
-| 일본 | `Tokyo street.jpg` | `Onigiri.JPG` | `Crowded Shibuya street.jpg` | `Sensoji temple tokyo.jpg` |
-| 브라질 | `Street Scene - Santa Teresa District - Rio de Janeiro - Brazil.jpg` | `Brazilian food Feijoada.jpg` | `Pedestrians and street stalls in Rio de Janeiro, Brazil.jpg` | `Sugarloaf, Rio, Brazil.jpg` |
-| 이집트 | `Cairo City.jpg` | `Egyptian Koshari.jpg` | `Life street in old Cairo.jpg` | `The Nile at Cairo.jpg` |
-| 프랑스 | `The Seine in Paris.jpg` | `Baguettes, Paris, France - panoramio.jpg` | `Paris street life. On the banks of the Seine. 4 June 2017.jpg` | `Paris Place du Carrousel, le Louvre.jpg` |
+## 한국
+- 도시 전경: Scenery of Seoul.jpg
+- 생활: Namdaemun market in Seoul I.jpg
+- 음식: Korean.food-Bibimbap-01.jpg
+- 문화/장소: Gyeongbokgung, Seoul.jpg
 
-## 기본 선별 원칙
+## 베트남
+- 도시/공공공간: Hanoi, Vietnam, Hoan Kiem Lake.jpg
+- 생활: Daily life in Vietnam Street vendor.jpg
+- 음식: Pho in Saigon.jpg
+- 문화/장소: Lake in Hanoi.jpg
 
-- 교육 주제와 직접 관련된 실제 자료인가
-- 초등학생에게 부적절한 폭력·성적·혐오·충격 콘텐츠가 중심이 아닌가
-- 개인의 사생활이나 특정 아동의 민감한 모습을 과도하게 노출하지 않는가
-- 한 장의 사진을 국가 전체나 특정 민족의 고정된 모습으로 설명하지 않는가
-- 원본 페이지에서 저작자와 라이선스 정보를 확인할 수 있는가
+## 중국
+- 도시 전경: Beijing skyline from northeast 4th ring road.jpg
+- 생활: Wangfujing street, Beijing.JPG
+- 음식: Jiaozi.jpg
+- 문화/장소: Temple-of-heaven.jpg
 
-교사가 추가한 사진은 이 48개 목록에 자동 편입되지 않습니다. `사진 자료 관리실`에서 별도로 미리보기·안전 확인을 완료한 뒤 해당 브라우저의 승인 목록에 저장됩니다.
+## 몽골
+- 도시 전경: Ulaanbaatar city Mongolia 20230926 102617.jpg
+- 생활: Peace Avenue, Ulaanbaatar, Mongolia - 2023.jpg
+- 음식: Mongolian buuz.jpg
+- 문화/장소: Mongolia-terelj.jpg
+
+## 필리핀
+- 도시/공공공간: Rizal Park from above.jpg
+- 생활: Binondo - Quintin Paredes (Manila; 11-24-2019).jpg
+- 음식: Adobo Filipino style.jpg
+- 문화/장소: Rizal Monument at Rizal Park.jpg
+
+## 태국
+- 도시 전경: Bangkok skyline, Bangkok, Thailand.jpg
+- 생활: Bangkok Chatuchak Market 1.jpg
+- 음식: Pad Thai in Thailand.jpg
+- 문화/장소: ThaiBangkokWatArun.jpg
+
+## 우즈베키스탄
+- 도시/공공공간: View from Hotel Uzbekistan in Tashkent 2.jpg
+- 생활: The Street of Tashkent.jpg
+- 음식: Plov.jpg
+- 문화/장소: Registan Samarkand.jpg
+
+## 인도
+- 도시/공공공간: Connaught Place New Delhi.jpg
+- 생활: Street scene in Old Delhi (5621280682).jpg
+- 음식: INDIAN thali.jpg
+- 문화/장소: India gate new delhi.jpg
+
+## 일본
+- 도시/공공공간: Shibuya Crossing in Tokyo.jpg
+- 생활: Crowded Shibuya street.jpg
+- 음식: Onigiri.JPG
+- 문화/장소: Sensoji temple tokyo.jpg
+
+## 브라질
+- 도시/주거 지역: Street Scene - Santa Teresa District - Rio de Janeiro - Brazil.jpg
+- 생활: Pedestrians and street stalls in Rio de Janeiro, Brazil.jpg
+- 음식: Brazilian food Feijoada.jpg
+- 문화/장소: Sugarloaf, Rio, Brazil.jpg
+
+## 이집트
+- 강과 도시: The Nile at Cairo.jpg
+- 생활: Life street in old Cairo.jpg
+- 음식: Egyptian Koshari.jpg
+- 문화/장소: Cairo City.jpg
+
+## 프랑스
+- 도시 전경: Paris from the Eiffel Tower.JPG
+- 생활: Paris street life. On the banks of the Seine. 4 June 2017.jpg
+- 음식: Baguettes, Paris, France - panoramio.jpg
+- 문화/장소: Paris Place du Carrousel, le Louvre.jpg
