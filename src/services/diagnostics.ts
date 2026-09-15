@@ -2,7 +2,7 @@ import { countries } from '../data/countries';
 import { getAppBasePath, getHostingLabel, getHostingMode } from './deployment';
 import { CURATED_COMMONS_FILES } from '../data/curatedCommonsAllowlist';
 
-export const APP_VERSION = '1.2.0';
+export const APP_VERSION = '1.2.2';
 const ERROR_KEY = 'multicultural-world-tour-error-log-v1';
 const CHECK_KEY = 'multicultural-world-tour-test-checklist-v3';
 
@@ -43,7 +43,7 @@ export function runDiagnostics(cloudConfigured: boolean, enrolled: boolean): Dia
   results.push({ id: 'content', label: '기본 여행 콘텐츠', ok: quizOkay && countries.length >= 12, detail: `${countries.length}개 국가 · 퀴즈 구조 ${quizOkay ? '정상' : '확인 필요'}` });
   results.push({ id: 'speech', label: '음성 읽기', ok: 'speechSynthesis' in window, detail: 'speechSynthesis' in window ? '기기 음성 기능 사용 가능' : '이 브라우저에서 음성 기능 미지원' });
   results.push({ id: 'network', label: '현재 네트워크', ok: navigator.onLine, detail: navigator.onLine ? '온라인으로 감지됨' : '오프라인으로 감지됨' });
-  results.push({ id: 'photos', label: '실사진 안전목록', ok: CURATED_COMMONS_FILES.length === 48, detail: `Wikimedia Commons 사전 선별 사진 ${CURATED_COMMONS_FILES.length}개 + 나라별 보조 그림 2장 · 실시간 검색 사용 안 함` });
+  results.push({ id: 'photos', label: '실사진 안전목록', ok: CURATED_COMMONS_FILES.length === 48, detail: `Wikimedia Commons 사전 선별 사진 ${CURATED_COMMONS_FILES.length}개 + 나라별 보조 그림 2장 · 도시 삶/랜드마크 중심 재선별 · 실시간 검색 사용 안 함` });
   results.push({ id: 'pwa', label: 'PWA 지원', ok: 'serviceWorker' in navigator, detail: 'serviceWorker' in navigator ? '서비스워커 사용 가능' : '서비스워커 미지원' });
   const hostingMode = getHostingMode();
   results.push({ id: 'hosting', label: '배포 환경', ok: true, detail: `${getHostingLabel()} · base ${getAppBasePath()}${hostingMode === 'github-pages' ? ' · GitHub Pages 경로 자동 대응' : ''}` });

@@ -8,20 +8,20 @@
  */
 export const CURATED_COMMONS_FILES = [
   // Korea
-  'Road in Seoul, KOREA.jpg',
-  'Streets of Seoul.jpg',
+  'Scenery of Seoul.jpg',
+  'Namdaemun market in Seoul I.jpg',
   'Korean.food-Bibimbap-01.jpg',
   'Gyeongbokgung, Seoul.jpg',
 
   // Vietnam
-  'Vietnam, Hanoi, Life on the streets of Hanoi.jpg',
+  'Hanoi, Vietnam, Hoan Kiem Lake.jpg',
   'Daily life in Vietnam Street vendor.jpg',
   'Pho in Saigon.jpg',
-  'Hoan Kiem Lake photo.jpg',
+  'Lake in Hanoi.jpg',
 
   // China
-  'Street life in Beijing 07.jpg',
-  'Street life in Beijing 02.jpg',
+  'Beijing skyline from northeast 4th ring road.jpg',
+  'Wangfujing street, Beijing.JPG',
   'Jiaozi.jpg',
   'Temple-of-heaven.jpg',
 
@@ -32,31 +32,31 @@ export const CURATED_COMMONS_FILES = [
   'Mongolia-terelj.jpg',
 
   // Philippines
-  'Manila street.jpg',
+  'Rizal Park from above.jpg',
   'Binondo - Quintin Paredes (Manila; 11-24-2019).jpg',
   'Adobo Filipino style.jpg',
-  'Rizal Park.jpg',
+  'Rizal Monument at Rizal Park.jpg',
 
   // Thailand
-  'Bangkok, Thailand skyline, 30 March 2023.jpg',
+  'Bangkok skyline, Bangkok, Thailand.jpg',
   'Bangkok Chatuchak Market 1.jpg',
   'Pad Thai in Thailand.jpg',
   'ThaiBangkokWatArun.jpg',
 
   // Uzbekistan
+  'View from Hotel Uzbekistan in Tashkent 2.jpg',
   'The Street of Tashkent.jpg',
-  'Street in Tashkent.jpg',
   'Plov.jpg',
   'Registan Samarkand.jpg',
 
   // India
-  'Street delhi connaught place.jpg',
+  'Connaught Place New Delhi.jpg',
   'Street scene in Old Delhi (5621280682).jpg',
   'INDIAN thali.jpg',
   'India gate new delhi.jpg',
 
   // Japan
-  'Tokyo street.jpg',
+  'Shibuya Crossing in Tokyo.jpg',
   'Crowded Shibuya street.jpg',
   'Onigiri.JPG',
   'Sensoji temple tokyo.jpg',
@@ -68,13 +68,13 @@ export const CURATED_COMMONS_FILES = [
   'Sugarloaf, Rio, Brazil.jpg',
 
   // Egypt
-  'Cairo City.jpg',
+  'The Nile at Cairo.jpg',
   'Life street in old Cairo.jpg',
   'Egyptian Koshari.jpg',
-  'The Nile at Cairo.jpg',
+  'Cairo City.jpg',
 
   // France
-  'The Seine in Paris.jpg',
+  'Paris from the Eiffel Tower.JPG',
   'Paris street life. On the banks of the Seine. 4 June 2017.jpg',
   'Baguettes, Paris, France - panoramio.jpg',
   'Paris Place du Carrousel, le Louvre.jpg',
